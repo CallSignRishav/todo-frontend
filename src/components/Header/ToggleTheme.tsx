@@ -1,8 +1,8 @@
 "use client";
 
 import { MoonStar, Sun } from "lucide-react";
-import { Button } from "../ui/button";
 import { useTheme } from "next-themes";
+import { Button } from "../ui/button";
 
 const ToggleTheme = () => {
   const { theme, setTheme } = useTheme();
@@ -18,7 +18,7 @@ const ToggleTheme = () => {
   return (
     <>
       <Button
-        variant={"ghost"}
+        variant={"link"}
         onClick={handleTheme}
         className="flex items-center"
       >
