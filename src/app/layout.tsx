@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 import "./globals.css";
+import MainHeader from "@/components/Header/MainHeader";
+import ThemeProvider from "@/components/ThemeProvider";
 
 type RootLayoutPropsType = Readonly<{
   children: ReactNode;
@@ -7,9 +9,21 @@ type RootLayoutPropsType = Readonly<{
 
 const RootLayout = ({ children }: RootLayoutPropsType) => {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      suppressHydrationWarning
+    >
       <body>
-        <main>{children}</main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          themes={["light", "dark"]}
+        >
+          <MainHeader />
+
+          <main className="mx-auto max-w-screen-lg px-4">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );
