@@ -2,6 +2,7 @@
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ComponentProps } from "react";
+import Providers from "./Providers";
 
 type ThemeProviderPropsType = ComponentProps<typeof NextThemesProvider>;
 
@@ -9,7 +10,9 @@ const ThemeProvider = ({ children, ...props }: ThemeProviderPropsType) => {
   return (
     <>
       <NextThemesProvider {...props}>
-        <main>{children}</main>
+        <Providers>
+          <main>{children}</main>
+        </Providers>
       </NextThemesProvider>
     </>
   );
