@@ -10,9 +10,9 @@ const ThemeProvider = ({ children, ...props }: ThemeProviderPropsType) => {
   return (
     <>
       <NextThemesProvider {...props}>
-        <Providers>
-          <main>{children}</main>
-        </Providers>
+        {children}
+
+        <Providers />
       </NextThemesProvider>
     </>
   );

@@ -1,19 +1,13 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
 
-type ProvidersPropsType = {
-  children: ReactNode;
-};
-
-const Providers = ({ children }: ProvidersPropsType) => {
+const Providers = () => {
   const { theme } = useTheme();
+
   return (
     <>
-      <main>{children}</main>
-
       {/* Toast Notification  */}
       <ToastContainer
         position={"top-center"}

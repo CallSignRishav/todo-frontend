@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
-import "./globals.css";
 import MainHeader from "@/components/Header/MainHeader";
 import ThemeProvider from "@/components/ThemeProvider";
+import { ReactNode } from "react";
+import "./globals.css";
 
 type RootLayoutPropsType = Readonly<{
   children: ReactNode;
