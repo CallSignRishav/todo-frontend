@@ -19,3 +19,10 @@ export const loginSchema = z.object({
     .string()
     .min(5, { message: "Password must be at least 5 characters long" }),
 });
+
+export const todoSchema = z.object({
+  todoInfo: z
+    .string()
+    .min(1, { message: "Enter valid todo" })
+    .max(100, { message: "Maximum todo length is 100" }),
+});

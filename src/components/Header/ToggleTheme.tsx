@@ -18,7 +18,7 @@ const ToggleTheme = () => {
     <>
       <button
         onClick={handleTheme}
-        className="flex items-center"
+        className="flex h-10 items-center"
       >
         <Sun
           size={24}

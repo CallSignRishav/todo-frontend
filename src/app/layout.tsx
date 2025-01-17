@@ -22,7 +22,9 @@ const RootLayout = ({ children }: RootLayoutPropsType) => {
         >
           <MainHeader />
 
-          <main className="mx-auto max-w-screen-lg px-4">{children}</main>
+          <main className="mx-auto max-w-screen-lg px-4 md:pt-0">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
