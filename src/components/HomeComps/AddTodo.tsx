@@ -49,6 +49,7 @@ const AddTodo = () => {
                   <FormItem className="md:col-span-3">
                     <FormControl>
                       <Input
+                        className="focus-visible:ring-0 focus-visible:ring-offset-0"
                         placeholder="Write somthing..."
                         {...field}
                       />
