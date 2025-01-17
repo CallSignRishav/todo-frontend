@@ -1,7 +1,16 @@
+import AddTodo from "@/components/HomeComps/AddTodo";
+import TodoList from "@/components/HomeComps/TodoList";
+
 const page = () => {
   return (
     <>
-      <div className="grid place-items-center h-dvh">Welcome to Coding 👋</div>
+      <section className="pt-36 md:pt-24">
+        <AddTodo />
+      </section>
+
+      <section className="py-10">
+        <TodoList />
+      </section>
     </>
   );
 };

@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
-import "./globals.css";
 import MainHeader from "@/components/Header/MainHeader";
 import ThemeProvider from "@/components/ThemeProvider";
+import { ReactNode } from "react";
+import "./globals.css";
 
 type RootLayoutPropsType = Readonly<{
   children: ReactNode;
@@ -22,7 +22,9 @@ const RootLayout = ({ children }: RootLayoutPropsType) => {
         >
           <MainHeader />
 
-          <main className="mx-auto max-w-screen-lg px-4">{children}</main>
+          <main className="mx-auto max-w-screen-lg px-4 md:pt-0">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>

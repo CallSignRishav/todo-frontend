@@ -2,7 +2,6 @@
 
 import { MoonStar, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "../ui/button";
 
 const ToggleTheme = () => {
   const { theme, setTheme } = useTheme();
@@ -17,15 +16,20 @@ const ToggleTheme = () => {
 
   return (
     <>
-      <Button
-        variant={"link"}
+      <button
         onClick={handleTheme}
-        className="flex items-center"
+        className="flex h-10 items-center"
       >
-        <Sun className="-rotate-90 scale-0 transition-all duration-300 ease-in-out dark:rotate-0 dark:scale-125" />
+        <Sun
+          size={24}
+          className="-rotate-90 scale-0 transition-all duration-300 ease-in-out dark:rotate-0 dark:scale-100"
+        />
 
-        <MoonStar className="absolute rotate-0 scale-125 transition-all duration-300 ease-in-out dark:rotate-90 dark:scale-0" />
-      </Button>
+        <MoonStar
+          size={24}
+          className="absolute rotate-0 scale-100 transition-all duration-300 ease-in-out dark:rotate-90 dark:scale-0"
+        />
+      </button>
     </>
   );
 };
