@@ -26,3 +26,15 @@ export const todoSchema = z.object({
     .min(1, { message: "Enter valid todo" })
     .max(100, { message: "Maximum todo length is 100" }),
 });
+
+export const profileUpdateSchema = z.object({
+  first_name: z
+    .string()
+    .min(3, { message: "First name must be at least 3 characters long" }),
+
+  last_name: z
+    .string()
+    .min(3, { message: "Last name must be at least 3 characters long" }),
+
+  email: z.string().email({ message: "Enter a valid email" }),
+});
