@@ -4,6 +4,8 @@ import { profileUpdateSchema } from "@/lib/schemas";
 import { ProfileUpdateDataType } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
@@ -20,7 +22,6 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 
 const ProfileUpdateForm = () => {
   const rhForm = useForm<ProfileUpdateDataType>({
@@ -37,6 +38,10 @@ const ProfileUpdateForm = () => {
 
   const profileUpdateFormSubmit = (fData: ProfileUpdateDataType) => {
     console.log(fData);
+
+    toast.success("Profile updated successfully!");
+
+    rhForm.reset();
   };
 
   return (
