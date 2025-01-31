@@ -1,4 +1,11 @@
 import RegisterForm from "@/components/RegisterForm";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return {
+    title: "Register | Todo Fullstack",
+  };
+};
 
 const page = () => {
   return (

@@ -32,7 +32,7 @@ import { Input } from "./ui/input";
 const RegisterForm = () => {
   const [view, setView] = useState(false);
 
-  const { replace } = useRouter();
+  const { push } = useRouter();
 
   const rhForm = useForm<RegisterDataType>({
     defaultValues: {
@@ -47,16 +47,16 @@ const RegisterForm = () => {
   const registerFormSubmit = async (fData: RegisterDataType) => {
     // console.log(fData);
 
-    const createUser = await userRegister(fData);
+    const { message, success } = await userRegister(fData);
 
-    if (createUser?.success) {
-      replace("/login");
+    if (success) {
+      push("/login");
 
       toast.success("Registered successfully!");
     }
 
-    if (createUser?.success === false) {
-      toast.error(createUser.message);
+    if (!success) {
+      toast.error(message);
     }
   };
 

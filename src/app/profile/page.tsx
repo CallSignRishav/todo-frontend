@@ -1,4 +1,11 @@
 import ProfileUpdateForm from "@/components/ProfileUpdateForm";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return {
+    title: "Profile | Todo Fullstack",
+  };
+};
 
 const page = () => {
   return (

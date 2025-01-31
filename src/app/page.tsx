@@ -1,5 +1,12 @@
 import AddTodo from "@/components/HomeComps/AddTodo";
 import TodoList from "@/components/HomeComps/TodoList";
+import { Metadata } from "next";
+
+export const generateMetadata = (): Metadata => {
+  return {
+    title: "Home | Todo Fullstack",
+  };
+};
 
 const page = () => {
   return (
