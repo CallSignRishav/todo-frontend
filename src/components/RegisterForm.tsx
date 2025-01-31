@@ -1,10 +1,12 @@
 "use client";
 
+import userRegister from "@/hooks/auth/userRegister";
 import { registerSchema } from "@/lib/schemas";
 import { RegisterDataType } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -30,6 +32,8 @@ import { Input } from "./ui/input";
 const RegisterForm = () => {
   const [view, setView] = useState(false);
 
+  const { replace } = useRouter();
+
   const rhForm = useForm<RegisterDataType>({
     defaultValues: {
       first_name: "",
@@ -40,12 +44,20 @@ const RegisterForm = () => {
     mode: "all",
   });
 
-  const registerFormSubmit = (fData: RegisterDataType) => {
-    console.log(fData);
+  const registerFormSubmit = async (fData: RegisterDataType) => {
+    // console.log(fData);
 
-    rhForm.reset();
+    const createUser = await userRegister(fData);
 
-    toast.success("Registered successfully!");
+    if (createUser?.success) {
+      replace("/login");
+
+      toast.success("Registered successfully!");
+    }
+
+    if (createUser?.success === false) {
+      toast.error(createUser.message);
+    }
   };
 
   return (

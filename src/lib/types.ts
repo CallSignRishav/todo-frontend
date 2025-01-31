@@ -13,3 +13,11 @@ export type LoginDataType = z.infer<typeof loginSchema>;
 export type TodoInfoType = z.infer<typeof todoSchema>;
 
 export type ProfileUpdateDataType = z.infer<typeof profileUpdateSchema>;
+
+export type DefaultResponseType<T> = {
+  data: T;
+};
+
+export type AuthEmailType = {
+  email: string;
+};
