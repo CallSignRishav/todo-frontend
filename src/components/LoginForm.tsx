@@ -123,6 +123,11 @@ const LoginForm = () => {
               <Button
                 type="submit"
                 className="w-full"
+                disabled={
+                  rhForm.formState.isValid || rhForm.formState.isSubmitting
+                    ? false
+                    : true
+                }
               >
                 Login
               </Button>

@@ -150,6 +150,11 @@ const RegisterForm = () => {
               <Button
                 type="submit"
                 className="w-full"
+                disabled={
+                  rhForm.formState.isValid || rhForm.formState.isSubmitting
+                    ? false
+                    : true
+                }
               >
                 Register
               </Button>
