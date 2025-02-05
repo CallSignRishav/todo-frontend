@@ -1,5 +1,6 @@
 "use client";
 
+import userLogin from "@/hooks/auth/userLogin";
 import { loginSchema } from "@/lib/schemas";
 import { LoginDataType } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,12 +45,18 @@ const LoginForm = () => {
     },
   });
 
-  const loginFormSubmit = (fData: LoginDataType) => {
-    console.log(fData);
+  const loginFormSubmit = async (flData: LoginDataType) => {
+    const { success, message } = await userLogin(flData);
 
-    replace("/");
+    if (!success) {
+      toast.error(message);
+    }
 
-    toast.success("Logged in successfully!");
+    if (success) {
+      toast.success(message);
+
+      replace("/");
+    }
   };
 
   return (

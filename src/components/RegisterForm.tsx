@@ -45,14 +45,12 @@ const RegisterForm = () => {
   });
 
   const registerFormSubmit = async (fData: RegisterDataType) => {
-    // console.log(fData);
-
     const { message, success } = await userRegister(fData);
 
     if (success) {
       push("/login");
 
-      toast.success("Registered successfully!");
+      toast.success(message);
     }
 
     if (!success) {

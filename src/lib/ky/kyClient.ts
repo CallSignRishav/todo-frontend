@@ -5,6 +5,7 @@ const kyClient = ky.create({
   credentials: "include",
   mode: "cors",
   cache: "no-store",
+  retry: 0,
 });
 
 export default kyClient;

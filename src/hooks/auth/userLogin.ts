@@ -1,13 +1,9 @@
 import kyClient from "@/lib/ky/kyClient";
-import {
-  AuthEmailType,
-  DefaultResponseType,
-  RegisterDataType,
-} from "@/lib/types";
+import { AuthEmailType, DefaultResponseType, LoginDataType } from "@/lib/types";
 import { HTTPError } from "ky";
 import { clearCookieAction } from "../action";
 
-const userRegister = async (fData: RegisterDataType) => {
+const userLogin = async (flData: LoginDataType) => {
   await clearCookieAction();
 
   try {
@@ -17,27 +13,31 @@ const userRegister = async (fData: RegisterDataType) => {
         searchParams: {
           filter: JSON.stringify({
             email: {
-              _eq: fData.email,
+              _eq: flData.email,
             },
           }),
         },
       })
       .json<DefaultResponseType<AuthEmailType[]>>();
 
-    if (data.length === 0) {
-      await kyClient.post("users/register", {
-        next: { tags: ["authRegister"] },
-        json: fData,
+    if (data.length === 1) {
+      await kyClient.post("auth/login", {
+        next: { tags: ["authLogin"] },
+        json: {
+          email: flData.email,
+          password: flData.password,
+          mode: "session",
+        },
       });
 
       return {
         success: true,
-        message: "Registered Successful!",
+        message: "Login Successful",
       };
     } else {
       return {
         success: false,
-        message: "Email already exists",
+        message: "Email is not registered",
       };
     }
   } catch (error: any) {
@@ -59,4 +59,4 @@ const userRegister = async (fData: RegisterDataType) => {
   }
 };
 
-export default userRegister;
+export default userLogin;
