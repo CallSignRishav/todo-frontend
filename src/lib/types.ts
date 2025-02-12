@@ -21,3 +21,10 @@ export type DefaultResponseType<T> = {
 export type AuthEmailType = {
   email: string;
 };
+
+export type AuthUserProfileType = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+};

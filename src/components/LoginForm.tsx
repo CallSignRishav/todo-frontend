@@ -1,12 +1,12 @@
 "use client";
 
+import { loginAction } from "@/hooks/actions";
 import userLogin from "@/hooks/auth/userLogin";
 import { loginSchema } from "@/lib/schemas";
 import { LoginDataType } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -32,8 +32,6 @@ import { Input } from "./ui/input";
 const LoginForm = () => {
   const [view, setView] = useState(false);
 
-  const { replace } = useRouter();
-
   const rhForm = useForm<LoginDataType>({
     resolver: zodResolver(loginSchema),
 
@@ -55,7 +53,7 @@ const LoginForm = () => {
     if (success) {
       toast.success(message);
 
-      replace("/");
+      await loginAction();
     }
   };
 
