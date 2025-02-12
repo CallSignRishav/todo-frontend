@@ -1,5 +1,5 @@
 import ky from "ky";
-import { env } from "../env";
+import env from "../env";
 
 const kyClient = ky.create({
   prefixUrl: env.NEXT_PUBLIC_API_URL,

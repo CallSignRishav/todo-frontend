@@ -1,4 +1,5 @@
 import ProfileUpdateForm from "@/components/ProfileUpdateForm";
+import getCurrentUser from "@/hooks/getCurrentUser";
 import { Metadata } from "next";
 
 export const generateMetadata = (): Metadata => {
@@ -7,11 +8,13 @@ export const generateMetadata = (): Metadata => {
   };
 };
 
-const page = () => {
+const page = async () => {
+  const { data } = await getCurrentUser();
+
   return (
     <>
       <div className="grid h-dvh place-items-center">
-        <ProfileUpdateForm />
+        <ProfileUpdateForm profile={data} />
       </div>
     </>
   );

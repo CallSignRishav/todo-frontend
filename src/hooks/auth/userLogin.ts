@@ -1,7 +1,7 @@
 import kyClient from "@/lib/ky/kyClient";
 import { AuthEmailType, DefaultResponseType, LoginDataType } from "@/lib/types";
 import { HTTPError } from "ky";
-import { clearCookieAction } from "../action";
+import { clearCookieAction } from "../actions";
 
 const userLogin = async (flData: LoginDataType) => {
   await clearCookieAction();

@@ -5,7 +5,7 @@ import {
   RegisterDataType,
 } from "@/lib/types";
 import { HTTPError } from "ky";
-import { clearCookieAction } from "../action";
+import { clearCookieAction } from "../actions";
 
 const userRegister = async (fData: RegisterDataType) => {
   await clearCookieAction();

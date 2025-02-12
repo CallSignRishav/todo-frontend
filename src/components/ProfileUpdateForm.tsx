@@ -1,7 +1,9 @@
 "use client";
 
+import { profileUpdateAction } from "@/hooks/actions";
+import updateUserProfile from "@/hooks/updateUserProfile";
 import { profileUpdateSchema } from "@/lib/schemas";
-import { ProfileUpdateDataType } from "@/lib/types";
+import { AuthUserProfileType, ProfileUpdateDataType } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -23,25 +25,35 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 
-const ProfileUpdateForm = () => {
+type ProfileUserType = {
+  profile: AuthUserProfileType | null;
+};
+
+const ProfileUpdateForm = ({ profile }: ProfileUserType) => {
   const rhForm = useForm<ProfileUpdateDataType>({
     resolver: zodResolver(profileUpdateSchema),
 
     mode: "all",
 
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
+      first_name: profile?.first_name || "",
+      last_name: profile?.last_name || "",
+      email: profile?.email || "",
     },
   });
 
-  const profileUpdateFormSubmit = (fData: ProfileUpdateDataType) => {
-    console.log(fData);
+  const profileUpdateFormSubmit = async (fData: ProfileUpdateDataType) => {
+    const { success, message } = await updateUserProfile(fData);
 
-    toast.success("Profile updated successfully!");
+    if (!success) {
+      toast.error(message);
+    }
 
-    rhForm.reset();
+    if (success) {
+      toast.success(message);
+
+      await profileUpdateAction();
+    }
   };
 
   return (

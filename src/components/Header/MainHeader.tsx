@@ -3,7 +3,7 @@ import LogoutBtn from "./LogoutBtn";
 import ProfileLink from "./ProfileLink";
 import ToggleTheme from "./ToggleTheme";
 
-const MainHeader = () => {
+const MainHeader = async () => {
   return (
     <>
       <header className="fixed w-full border-b border-b-foreground/10 shadow-sm backdrop-blur-lg">
