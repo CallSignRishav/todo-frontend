@@ -1,7 +1,8 @@
 import ky from "ky";
+import { env } from "../env";
 
 const kyClient = ky.create({
-  prefixUrl: "http://localhost:8055",
+  prefixUrl: env.NEXT_PUBLIC_API_URL,
   credentials: "include",
   mode: "cors",
   cache: "no-store",

@@ -1,7 +1,8 @@
 import ky from "ky";
+import { env } from "../env";
 
 const kyServer = ky.create({
-  prefixUrl: "127.0.0.1:8055",
+  prefixUrl: env.JWT_SECRET,
   credentials: "include",
   mode: "cors",
   cache: "no-store",
