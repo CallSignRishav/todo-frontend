@@ -1,10 +1,12 @@
 "use client";
 
+import userRegister from "@/hooks/auth/userRegister";
 import { registerSchema } from "@/lib/schemas";
 import { RegisterDataType } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -30,6 +32,8 @@ import { Input } from "./ui/input";
 const RegisterForm = () => {
   const [view, setView] = useState(false);
 
+  const { push } = useRouter();
+
   const rhForm = useForm<RegisterDataType>({
     defaultValues: {
       first_name: "",
@@ -40,12 +44,18 @@ const RegisterForm = () => {
     mode: "all",
   });
 
-  const registerFormSubmit = (fData: RegisterDataType) => {
-    console.log(fData);
+  const registerFormSubmit = async (fData: RegisterDataType) => {
+    const { message, success } = await userRegister(fData);
 
-    rhForm.reset();
+    if (success) {
+      push("/login");
 
-    toast.success("Registered successfully!");
+      toast.success(message);
+    }
+
+    if (!success) {
+      toast.error(message);
+    }
   };
 
   return (
@@ -138,6 +148,11 @@ const RegisterForm = () => {
               <Button
                 type="submit"
                 className="w-full"
+                disabled={
+                  rhForm.formState.isValid || rhForm.formState.isSubmitting
+                    ? false
+                    : true
+                }
               >
                 Register
               </Button>
