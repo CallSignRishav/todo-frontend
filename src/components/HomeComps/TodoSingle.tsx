@@ -1,13 +1,30 @@
 "use client";
 
+import { todoToggleCheckAction } from "@/hooks/actions";
+import todoToggleCheck from "@/hooks/todo/todoToggleCheck";
+import { TodoDataType } from "@/lib/types";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 
-const TodoSingle = () => {
-  const [read, setRead] = useState(false);
+type TodoSingleProps = {
+  details: TodoDataType;
+};
+
+const TodoSingle = ({ details }: TodoSingleProps) => {
+  const [load, setLoad] = useState(false);
+
+  const toggleCheck = async (checked: boolean) => {
+    setLoad(true);
+
+    await todoToggleCheck({ checked, tId: details.id });
+
+    await todoToggleCheckAction();
+
+    setLoad(false);
+  };
 
   return (
     <>
@@ -15,15 +32,15 @@ const TodoSingle = () => {
         <CardContent className="flex items-center justify-between px-6 py-2">
           <div className="flex items-center gap-4">
             <Checkbox
-              defaultChecked={read}
-              onCheckedChange={() => setRead(!read)}
+              defaultChecked={details.read}
+              onCheckedChange={(c: boolean) => toggleCheck(c)}
+              disabled={load}
             />
 
             <div
-              className={`${read ? "line-through" : ""} text-sm decoration-2 md:text-base`}
+              className={`${details.read ? "line-through" : ""} text-sm decoration-2 md:text-base`}
             >
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem,
-              exercitationem?
+              {details.todoInfo}
             </div>
           </div>
 

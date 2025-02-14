@@ -8,7 +8,7 @@ export const generateMetadata = (): Metadata => {
   };
 };
 
-const page = () => {
+const page = async () => {
   return (
     <>
       <section className="pt-36 md:pt-24">

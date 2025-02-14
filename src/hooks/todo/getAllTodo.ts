@@ -1,24 +1,21 @@
 import kyServer from "@/lib/ky/kyServer";
-import { AuthUserProfileType, DefaultResponseType } from "@/lib/types";
+import { DefaultResponseType, TodoDataType } from "@/lib/types";
 import { HTTPError } from "ky";
 import { cookies } from "next/headers";
 
-const getCurrentUser = async () => {
+const getAllTodo = async () => {
   const currentUserToken = (await cookies()).get("directus_session_token")
     ?.value as string;
 
   try {
     const { data } = await kyServer
-      .get("users/me", {
+      .get("items/todo_main", {
         headers: {
           Authorization: `Bearer ${currentUserToken}`,
         },
-        next: { tags: ["currentUser"] },
-        searchParams: {
-          fields: "id,first_name,last_name,email",
-        },
+        next: { tags: ["getAllTodo"] },
       })
-      .json<DefaultResponseType<AuthUserProfileType>>();
+      .json<DefaultResponseType<TodoDataType[]>>();
 
     return {
       isError: false,
@@ -38,4 +35,4 @@ const getCurrentUser = async () => {
   }
 };
 
-export default getCurrentUser;
+export default getAllTodo;
