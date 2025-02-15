@@ -20,6 +20,8 @@ const getAllTodo = async () => {
               _eq: "$CURRENT_USER",
             },
           }),
+
+          sort: "-date_created",
         },
       })
       .json<DefaultResponseType<TodoDataType[]>>();
