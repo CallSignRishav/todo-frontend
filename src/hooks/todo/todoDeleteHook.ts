@@ -1,22 +1,14 @@
 import kyClient from "@/lib/ky/kyClient";
 import { HTTPError } from "ky";
 
-type TodoToggleCheckProps = {
-  tId: string;
-  checked: boolean;
-};
-
-const todoToggleCheck = async ({ tId, checked }: TodoToggleCheckProps) => {
+const todoDeleteHook = async (tId: string) => {
   try {
-    await kyClient.patch(`items/todo_main/${tId}`, {
-      json: {
-        read: checked,
-      },
+    await kyClient.delete(`items/todo_main/${tId}`, {
+      next: { tags: ["deleteTodo"] },
     });
-
     return {
       isError: false,
-      error: null,
+      error: "Todo Deleted Successfully",
     };
     // eslint-disable-next-line
   } catch (error: any) {
@@ -31,4 +23,4 @@ const todoToggleCheck = async ({ tId, checked }: TodoToggleCheckProps) => {
   }
 };
 
-export default todoToggleCheck;
+export default todoDeleteHook;

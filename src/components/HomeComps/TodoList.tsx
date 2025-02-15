@@ -2,7 +2,7 @@ import getAllTodo from "@/hooks/todo/getAllTodo";
 import TodoSingle from "./TodoSingle";
 
 const TodoList = async () => {
-  const { isError, data, error } = await getAllTodo();
+  const { isError, data } = await getAllTodo();
 
   if (isError) {
     return null;
@@ -11,6 +11,10 @@ const TodoList = async () => {
   return (
     <>
       <div className="flex flex-col gap-4">
+        {data?.length === 0 && (
+          <div className="text-center text-xl">No Todos</div>
+        )}
+
         {data?.map((tInfo) => {
           return (
             <TodoSingle

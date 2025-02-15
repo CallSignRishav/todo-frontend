@@ -1,17 +1,18 @@
 import kyClient from "@/lib/ky/kyClient";
-import { ProfileUpdateDataType } from "@/lib/types";
+import { TodoInfoType } from "@/lib/types";
 import { HTTPError } from "ky";
 
-const updateUserProfile = async (fData: ProfileUpdateDataType) => {
+const addTodoHook = async (fData: TodoInfoType) => {
   try {
-    await kyClient.patch("users/me", {
+    await kyClient.post("items/todo_main", {
+      next: { tags: ["addTodoHook"] },
+
       json: fData,
-      next: { tags: ["updateUserProfile"] },
     });
 
     return {
       success: true,
-      message: "Profile updated successfully",
+      message: "Todo Added Successfully",
     };
     // eslint-disable-next-line
   } catch (error: any) {
@@ -33,4 +34,4 @@ const updateUserProfile = async (fData: ProfileUpdateDataType) => {
   }
 };
 
-export default updateUserProfile;
+export default addTodoHook;

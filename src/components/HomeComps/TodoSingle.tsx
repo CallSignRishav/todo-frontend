@@ -1,10 +1,12 @@
 "use client";
 
-import { todoToggleCheckAction } from "@/hooks/actions";
+import { todoUpdateCheckAction } from "@/hooks/actions";
+import todoDeleteHook from "@/hooks/todo/todoDeleteHook";
 import todoToggleCheck from "@/hooks/todo/todoToggleCheck";
 import { TodoDataType } from "@/lib/types";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
@@ -21,9 +23,23 @@ const TodoSingle = ({ details }: TodoSingleProps) => {
 
     await todoToggleCheck({ checked, tId: details.id });
 
-    await todoToggleCheckAction();
+    await todoUpdateCheckAction();
 
     setLoad(false);
+  };
+
+  const todoDelete = async () => {
+    const { error, isError } = await todoDeleteHook(details.id);
+
+    if (isError) {
+      toast.error(error);
+    }
+
+    if (!isError) {
+      await todoUpdateCheckAction();
+
+      toast.success(error);
+    }
   };
 
   return (
@@ -48,6 +64,8 @@ const TodoSingle = ({ details }: TodoSingleProps) => {
             variant="ghost"
             size="icon"
             className="text-red-500"
+            onClick={todoDelete}
+            disabled={load}
           >
             <Trash2 />
           </Button>

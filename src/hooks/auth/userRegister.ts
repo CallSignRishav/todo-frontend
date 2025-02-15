@@ -40,11 +40,12 @@ const userRegister = async (fData: RegisterDataType) => {
         message: "Email already exists",
       };
     }
+    // eslint-disable-next-line
   } catch (error: any) {
     if (error.name === "HTTPError") {
       const httpError = error as HTTPError;
 
-      const errorJson = await httpError.response.json<any>();
+      const errorJson = await httpError.response.json<any>(); // eslint-disable-line
 
       return {
         success: false,

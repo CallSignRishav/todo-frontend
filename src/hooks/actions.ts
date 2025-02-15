@@ -22,7 +22,7 @@ export const profileUpdateAction = async () => {
   revalidateTag("currentUser");
 };
 
-export const todoToggleCheckAction = async () => {
+export const todoUpdateCheckAction = async () => {
   revalidateTag("getAllTodo");
 
   revalidatePath("/");

@@ -14,6 +14,7 @@ const userLogout = async () => {
       success: true,
       message: "Logout Successful!",
     };
+    // eslint-disable-next-line
   } catch (error: any) {
     if (error.name === "HTTPError") {
       return {

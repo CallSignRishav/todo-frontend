@@ -21,6 +21,8 @@ export const middleware = async (request: NextRequest) => {
 
     checkRes.cookies.delete("directus_session_token");
 
+    console.log(error);
+
     return checkRes;
   }
 };
