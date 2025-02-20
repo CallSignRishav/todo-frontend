@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -20,4 +20,10 @@ export const logoutAction = async () => {
 
 export const profileUpdateAction = async () => {
   revalidateTag("currentUser");
+};
+
+export const todoUpdateCheckAction = async () => {
+  revalidateTag("getAllTodo");
+
+  revalidatePath("/");
 };

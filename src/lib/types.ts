@@ -28,3 +28,9 @@ export type AuthUserProfileType = {
   last_name: string;
   email: string;
 };
+
+export type TodoDataType = {
+  id: string;
+  todoInfo: string;
+  read: boolean;
+};

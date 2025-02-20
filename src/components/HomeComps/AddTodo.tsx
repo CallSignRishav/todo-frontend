@@ -15,6 +15,9 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import addTodoHook from "@/hooks/todo/addTodoHook";
+import { toast } from "react-toastify";
+import { todoUpdateCheckAction } from "@/hooks/actions";
 
 const AddTodo = () => {
   const rhForm = useForm<TodoInfoType>({
@@ -27,10 +30,20 @@ const AddTodo = () => {
     },
   });
 
-  const todoAddFn = (fData: TodoInfoType) => {
-    console.log(fData);
+  const todoAddFn = async (fData: TodoInfoType) => {
+    const { success, message } = await addTodoHook(fData);
 
-    rhForm.reset();
+    if (!success) {
+      toast.error(message);
+    }
+
+    if (success) {
+      rhForm.reset();
+
+      await todoUpdateCheckAction();
+
+      toast.success(message);
+    }
   };
 
   return (
@@ -52,6 +65,7 @@ const AddTodo = () => {
                         className="focus-visible:ring-0 focus-visible:ring-offset-0"
                         placeholder="Write somthing..."
                         {...field}
+                        disabled={rhForm.formState.isSubmitting}
                       />
                     </FormControl>
 
@@ -63,6 +77,7 @@ const AddTodo = () => {
               <Button
                 type="submit"
                 className="flex w-full items-center gap-2"
+                disabled={rhForm.formState.isSubmitting}
               >
                 <CirclePlus />
                 Add Todo

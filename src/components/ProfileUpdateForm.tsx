@@ -5,6 +5,7 @@ import updateUserProfile from "@/hooks/updateUserProfile";
 import { profileUpdateSchema } from "@/lib/schemas";
 import { AuthUserProfileType, ProfileUpdateDataType } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Button } from "./ui/button";
@@ -30,6 +31,8 @@ type ProfileUserType = {
 };
 
 const ProfileUpdateForm = ({ profile }: ProfileUserType) => {
+  const [load, setLoad] = useState<boolean>(false);
+
   const rhForm = useForm<ProfileUpdateDataType>({
     resolver: zodResolver(profileUpdateSchema),
 
@@ -43,17 +46,29 @@ const ProfileUpdateForm = ({ profile }: ProfileUserType) => {
   });
 
   const profileUpdateFormSubmit = async (fData: ProfileUpdateDataType) => {
-    const { success, message } = await updateUserProfile(fData);
+    setLoad(true);
 
-    if (!success) {
-      toast.error(message);
+    if (
+      profile?.email === fData.email &&
+      profile?.first_name === fData.first_name &&
+      profile?.last_name === fData.last_name
+    ) {
+      toast.warn("No changes detected");
+    } else {
+      const { success, message } = await updateUserProfile(fData);
+
+      if (!success) {
+        toast.error(message);
+      }
+
+      if (success) {
+        toast.success(message);
+
+        await profileUpdateAction();
+      }
     }
 
-    if (success) {
-      toast.success(message);
-
-      await profileUpdateAction();
-    }
+    setLoad(false);
   };
 
   return (
@@ -82,6 +97,7 @@ const ProfileUpdateForm = ({ profile }: ProfileUserType) => {
                       <Input
                         placeholder="admin@example.com"
                         {...field}
+                        disabled={load}
                       />
                     </FormControl>
 
@@ -101,6 +117,7 @@ const ProfileUpdateForm = ({ profile }: ProfileUserType) => {
                       <Input
                         placeholder="John"
                         {...field}
+                        disabled={load}
                       />
                     </FormControl>
 
@@ -120,6 +137,7 @@ const ProfileUpdateForm = ({ profile }: ProfileUserType) => {
                       <Input
                         placeholder="Doe"
                         {...field}
+                        disabled={load}
                       />
                     </FormControl>
 
@@ -131,6 +149,7 @@ const ProfileUpdateForm = ({ profile }: ProfileUserType) => {
               <Button
                 type="submit"
                 className="w-full"
+                disabled={load}
               >
                 Update
               </Button>

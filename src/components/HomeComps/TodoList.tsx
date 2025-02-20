@@ -1,17 +1,29 @@
+import getAllTodo from "@/hooks/todo/getAllTodo";
 import TodoSingle from "./TodoSingle";
 
-const TodoList = () => {
+const TodoList = async () => {
+  const { isError, data } = await getAllTodo();
+
+  if (isError) {
+    return null;
+  }
+
   return (
     <>
-      <section className="flex flex-col gap-4">
-        <TodoSingle />
+      <div className="flex flex-col gap-4">
+        {data?.length === 0 && (
+          <div className="text-center text-xl">No Todos</div>
+        )}
 
-        <TodoSingle />
-
-        <TodoSingle />
-
-        <TodoSingle />
-      </section>
+        {data?.map((tInfo) => {
+          return (
+            <TodoSingle
+              key={tInfo.id}
+              details={tInfo}
+            />
+          );
+        })}
+      </div>
     </>
   );
 };
